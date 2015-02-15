@@ -1,0 +1,122 @@
+Classe abstratas são classes que não podem ser instanciadas. 
+Ou seja, não oconsigo dar new nelas. Numa classe abstrata, eu possuo
+metodos abstratos onde os mesmo não tem corpo. Os metódos abstratos 
+somente forçam a todas as classes que herdarem da classe abstrata a ter
+que reescrever aqueles metodos abstratos.
+
+
+Perguntas:
+
+--------
+Repare que a nossa classe Conta é uma excelente candidata para uma 
+classe abstrata. Por quê? Que métodos seriam interessantes candidatos 
+a serem abstratos? Transforme a classe Conta em abstrata, repare o que 
+acontece no seu main já existente do TestaContas.
+
+Minha Resposta:
+Porque não se instancia uma Conta, e sim uma ContaCorrente ou ContaPoupança. 
+Os métodos que seriam interessantes serem abstratos são os deposita(), saca() 
+e atualiza() pois todas as ContaCorrente e ContaPoupança terão que ter. Após 
+tornar abstrata o Conta,o TesteConta deu erro por causa do new Conta().
+
+Resposta certa:
+A classe contendo nosso main não compila mais! Como a Conta é abstrata, 
+não podemos fazer new Conta().
+
+--------
+Para que o código do main volte a compilar, troque o new Conta() por 
+new ContaCorrente().
+Se não podemos dar new em Conta, qual é a utilidade de ter um método 
+que recebe uma referência a Conta como argumento? Aliás, posso ter isso?
+
+Minha Resposta:
+Sim. Isso se chama polimorfismo. Quando precisamos de um único método que 
+receba qualquer classe filha de Conta isso pode ser muito útil.
+
+Resposta certa
+Esse código é possível, sim, e muito útil! Um método que receba uma Conta 
+como argumento poderá trabalhar com qualquer objeto que seja uma Conta. 
+Isto é, a classe Conta serve como um agrupador de tipos e o polimorfismo 
+ainda é possível!
+
+--------------
+Pois o método atualiza() não pode herdar diretamente da Class Conta. Pois 
+lá na Classe Conta ele está marcado como abstract. E o método abstract não 
+possui corpo, ele só indica que deve existir esse métodos nas classes 
+filhas. Temos que escrever o método e seu corpo na classe ContaPoupanca.
+
+ Resposta certa
+Tornar um método abstrato é como dar uma responsabilidade para todas as 
+filhas dessa classe: é obrigação de cada uma delas oferecer uma implementação 
+para o método declarado na mãe.
+Veja pelo lado do compilador: se ele recebe um objeto que é uma Conta, ele 
+sabe que esse objeto consegue atualizar. Como a ContaPoupanca é uma Conta, 
+o compilador precisa que ela seja capaz de rodar o atualiza para ter certeza
+ de que ela vai funcionar.
+ 
+ --------------
+ Reescreva o método atualiza() na classe ContaPoupanca para que a classe 
+ possa compilar normalmente. O eclipse também sugere isso como um quick fix:
+ Compartilhe o código de seu método atualiza sobrescrito. Qual a anotação 
+ presente acima do método?
+ 
+Resposta certa:
+Se você usou o recurso de sobrescrever o método automaticamente pelo Eclipse, 
+ele adicionou a anotação @Override. Ela ajuda o compilador a dizer se você 
+errou o nome do método, parâmetros etc, uma vez que se o método não sobrescrever
+o método (abstrato ou não) de sua classe pai, ele reclama.
+--------------
+Existe outra maneira de a classe ContaCorrente compilar se você 
+não reescrever o método abstrato?
+
+Sim. Colocando a class ContaCorrente também como abstrata.
+
+Resposta certa
+Se transformarmos a classe ContaCorrente em abstrata, ela volta a compilar, já 
+que a responsabilidade de implementar o método é repassada para seus filhos.
+
+--------------
+Pra que ter o método atualiza na classe Conta se ele não faz nada? O que 
+acontece se simplesmente apagarmos esse método da classe Conta e deixarmos
+ o método atualiza nas filhas?
+Caso deseje, comente as linhas do método da classe pai e veja o que 
+acontece, depois descomente as linhas.
+
+Para obrigar a todas as filhas a terem o método atualiza(). Mesmo que ele 
+seja implementado de forma diferente. Se apagarmos o método atualiza() na 
+classe Conta ele deixa de ser obrigatório nas filhas, mas continua 
+funcionar normalmente.
+
+Resposta certa
+O sentido de termos um método abstrato é fazer com que o compilador se 
+certifique de que haverá uma implementação daquele método para toda Conta.
+
+Se tirarmos o atualiza da Conta, perdemos a garantia de que todo objeto 
+que é uma conta vai ter implementado esse método. Isto é, uma classe 
+que trabalhe com uma Conta não compilará mais a chamada ao método 
+atualiza.
+
+-------
+Posso chamar um método abstrato de dentro de um outro método da própria 
+classe abstrata? Um exemplo: o mostra do Funcionario pode invocar 
+this.getBonificacao()?
+
+sim. pode sem problemas mas ele vai funcionar conforme a implementação 
+da classe filha.
+
+Sim, pode! Lembre-se que o método é chamado no objeto e não no tipo da 
+referência, assim, por mais que você chame um Gerente de Funcionario, 
+ele continuará tendo a implementação do método getBonificacao que a 
+classe Gerente declarar.
+
+--------
+Não podemos dar new em Conta, mas por que, então, podemos dar new em 
+Conta[10], por exemplo?
+
+Porque nesse caso é uma Array e uma Array é um objeto. Estamos criando
+ um objeto Array e não um objeto Conta.
+
+Resposta certa
+Ao fazermos new Conta[10] não é um objeto do tipo Conta que estamos 
+criando, mas sim um objeto que é um array. É o mesmo que criarmos dez 
+variáveis do tipo Conta, o que não é um problema!
